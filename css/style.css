@@ -260,7 +260,7 @@ p { margin-bottom: 1rem; color: var(--text-muted); }
 /* Cards */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
   gap: 2rem;
 }
 
@@ -319,7 +319,7 @@ p { margin-bottom: 1rem; color: var(--text-muted); }
 /* Gallery Grid */
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
   gap: 1.5rem;
 }
 
@@ -419,7 +419,7 @@ p { margin-bottom: 1rem; color: var(--text-muted); }
 /* Perangkat Desa / Team */
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
   gap: 2rem;
 }
 
@@ -536,7 +536,7 @@ p { margin-bottom: 1rem; color: var(--text-muted); }
 
 .footer-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
   gap: 3rem;
   margin-bottom: 3rem;
 }
@@ -617,6 +617,14 @@ p { margin-bottom: 1rem; color: var(--text-muted); }
   
   h1 { font-size: 2rem; }
   h2 { font-size: 1.75rem; }
+  
+  .container {
+    padding: 0 1rem;
+  }
+  
+  #statistik-container {
+    grid-template-columns: 1fr !important;
+  }
 }
 
 /* Loading State */
