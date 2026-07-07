@@ -139,15 +139,36 @@ function renderDocumentItem(doc) {
   `;
 }
 
-function initHeroSlideshow() {
-  const slides = document.querySelectorAll('.slideshow-slide');
-  if (slides.length === 0) return;
+async function initHeroSlideshow() {
+  const container = document.getElementById('hero-slideshow');
+  if (!container) return;
   
-  let currentSlideIndex = 0;
-  
-  setInterval(() => {
-    slides[currentSlideIndex].classList.remove('active');
-    currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-    slides[currentSlideIndex].classList.add('active');
-  }, 4000); // Change image every 4 seconds
+  try {
+    const galleryData = await api.getGallery();
+    // Ambil maksimal 5 gambar
+    const slidesData = galleryData.slice(0, 5);
+    
+    if (slidesData.length === 0) {
+      container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;background:#e2e8f0;border-radius:var(--radius-lg)"><p>Tidak ada gambar</p></div>';
+      return;
+    }
+    
+    container.innerHTML = slidesData.map((item, index) => `
+      <img class="slideshow-slide ${index === 0 ? 'active' : ''}" src="${item.image_url}" alt="${item.judul}" loading="${index === 0 ? 'eager' : 'lazy'}">
+    `).join('');
+    
+    const slides = container.querySelectorAll('.slideshow-slide');
+    if (slides.length <= 1) return;
+    
+    let currentSlideIndex = 0;
+    setInterval(() => {
+      slides[currentSlideIndex].classList.remove('active');
+      currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+      slides[currentSlideIndex].classList.add('active');
+    }, 4000);
+    
+  } catch (error) {
+    console.error("Gagal memuat slideshow:", error);
+    container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;background:#e2e8f0;border-radius:var(--radius-lg)"><p>Gagal memuat gambar galeri</p></div>';
+  }
 }
