@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil Desa - Desa Palangan</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">
+        <i class="fas fa-leaf"></i> Desa Palangan
+      </a>
+      <button class="hamburger">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="index.html">Beranda</a></li>
+        <li class="nav-item"><a href="profil.html" class="active">Profil</a></li>
+        <li class="nav-item"><a href="berita.html">Berita</a></li>
+        <li class="nav-item"><a href="galeri.html">Galeri</a></li>
+        <li class="nav-item"><a href="perangkat.html">Perangkat</a></li>
+        <li class="nav-item"><a href="dokumen.html">Dokumen</a></li>
+        <li class="nav-item"><a href="kontak.html">Kontak</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <div class="container">
+      <h1>Profil Desa</h1>
+      <p>Mengenal lebih dekat sejarah, visi, dan misi Desa Palangan</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="py-16">
+    <div class="container" id="profile-container">
+      <!-- Data akan dimuat melalui API -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>Desa Palangan</h3>
+          <p>Website resmi desa sebagai sarana informasi dan publikasi kepada masyarakat luas mengenai berbagai kegiatan dan potensi desa.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Tautan Cepat</h3>
+          <ul class="footer-links">
+            <li><a href="profil.html">Profil Desa</a></li>
+            <li><a href="berita.html">Berita Terbaru</a></li>
+            <li><a href="galeri.html">Galeri Kegiatan</a></li>
+            <li><a href="dokumen.html">Dokumen Publik</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Kontak</h3>
+          <ul class="footer-links">
+            <li><i class="fas fa-map-marker-alt" style="width:20px;"></i> Kantor Kepala Desa Palangan</li>
+            <li><i class="fas fa-phone" style="width:20px;"></i> (0338) 123456</li>
+            <li><i class="fas fa-envelope" style="width:20px;"></i> info@desapalangan.go.id</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Pemerintah Desa Palangan. Hak Cipta Dilindungi.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      renderLoading('profile-container');
+      try {
+        const [profileData, settingsData] = await Promise.all([
+          api.getProfile(),
+          api.getSettings()
+        ]);
+        
+        let misiList = '';
+        if (typeof profileData.misi === 'string') {
+          misiList = profileData.misi.split('\\n').filter(m => m.trim() !== '').map(m => `<li><i class="fas fa-check-circle text-primary" style="margin-right: 10px;"></i> ${m}</li>`).join('');
+        } else if (Array.isArray(profileData.misi)) {
+          misiList = profileData.misi.map(m => `<li><i class="fas fa-check-circle text-primary" style="margin-right: 10px;"></i> ${m}</li>`).join('');
+        }
+
+        document.getElementById('profile-container').innerHTML = `
+          <div style="display: grid; grid-template-columns: 1fr; gap: 4rem;">
+            <!-- Informasi Umum -->
+            <div class="card" style="padding: 2rem;">
+              <h2 class="text-primary" style="border-bottom: 2px solid var(--bg-offset); padding-bottom: 1rem; margin-bottom: 1.5rem;">Informasi Umum</h2>
+              <table style="width: 100%; border-collapse: collapse; font-size: 1.1rem;">
+                <tr>
+                  <td style="padding: 0.75rem 0; font-weight: 600; width: 150px;">Nama Desa</td>
+                  <td>: ${settingsData.nama_desa}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.75rem 0; font-weight: 600;">Kecamatan</td>
+                  <td>: ${settingsData.kecamatan}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.75rem 0; font-weight: 600;">Kabupaten</td>
+                  <td>: ${settingsData.kabupaten}</td>
+                </tr>
+              </table>
+            </div>
+
+            <!-- Sejarah -->
+            <div>
+              <h2 class="text-primary mb-4">Sejarah Desa</h2>
+              <div class="card" style="padding: 2rem;">
+                <p style="font-size: 1.125rem; line-height: 1.8; color: var(--text-dark);">${profileData.sejarah}</p>
+              </div>
+            </div>
+
+            <!-- Visi & Misi -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+              <div class="card" style="padding: 2rem;">
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                  <i class="fas fa-eye text-primary" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                  <h2 class="text-primary">Visi</h2>
+                </div>
+                <p style="font-size: 1.125rem; text-align: center; font-weight: 500;">"${profileData.visi}"</p>
+              </div>
+              <div class="card" style="padding: 2rem;">
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                  <i class="fas fa-bullseye text-primary" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                  <h2 class="text-primary">Misi</h2>
+                </div>
+                <ul style="list-style: none; padding: 0; font-size: 1.125rem; display: flex; flex-direction: column; gap: 1rem;">
+                  ${misiList}
+                </ul>
+              </div>
+            </div>
+          </div>
+        `;
+      } catch (error) {
+        renderError('profile-container');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Profil Desa Palangan</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">
+        <i class="fas fa-leaf"></i> Desa Palangan
+      </a>
+      <button class="hamburger">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="index.html" class="active">Beranda</a></li>
+        <li class="nav-item"><a href="profil.html">Profil</a></li>
+        <li class="nav-item"><a href="berita.html">Berita</a></li>
+        <li class="nav-item"><a href="galeri.html">Galeri</a></li>
+        <li class="nav-item"><a href="perangkat.html">Perangkat</a></li>
+        <li class="nav-item"><a href="dokumen.html">Dokumen</a></li>
+        <li class="nav-item"><a href="kontak.html">Kontak</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Selamat Datang di <span>Desa Palangan</span></h1>
+        <p>Mewujudkan desa yang mandiri, sejahtera, dan berbudaya. Temukan informasi terbaru seputar kegiatan, pelayanan, dan potensi desa kami.</p>
+        <a href="profil.html" class="btn btn-primary">Kenali Desa Kami</a>
+        <a href="berita.html" class="btn btn-outline" style="margin-left: 10px;">Berita Terbaru</a>
+      </div>
+      <div class="hero-image">
+        <!-- Menggunakan gambar landscape alam sebagai ilustrasi desa -->
+        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=800&auto=format&fit=crop" alt="Pemandangan Desa">
+      </div>
+    </div>
+  </header>
+
+  <!-- Sambutan & Statistik Section -->
+  <section class="py-16">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; align-items: center;">
+        <div>
+          <h2 class="text-primary mb-4">Sambutan Kepala Desa</h2>
+          <p id="sambutan-text">"Puji syukur kami panjatkan ke hadirat Tuhan Yang Maha Esa atas peluncuran website resmi Desa Palangan ini. Melalui website ini, kami berharap dapat memberikan pelayanan informasi yang cepat, transparan, dan akurat kepada seluruh masyarakat desa serta publik secara luas."</p>
+          <p><strong>- Budi Santoso, Kepala Desa Palangan</strong></p>
+        </div>
+        <div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;" id="statistik-container">
+            <!-- Data akan dimuat melalui API -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Berita Terbaru -->
+  <section class="py-16 bg-offset">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h2>Berita Terbaru</h2>
+        <a href="berita.html" class="btn btn-outline">Lihat Semua Berita</a>
+      </div>
+      <div id="latest-news-container" class="card-grid">
+        <!-- Data Berita -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeri Terbaru -->
+  <section class="py-16">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h2>Galeri Kegiatan</h2>
+        <a href="galeri.html" class="btn btn-outline">Lihat Semua Galeri</a>
+      </div>
+      <div id="latest-gallery-container" class="gallery-grid" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
+        <!-- Data Galeri -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>Desa Palangan</h3>
+          <p>Website resmi desa sebagai sarana informasi dan publikasi kepada masyarakat luas mengenai berbagai kegiatan dan potensi desa.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Tautan Cepat</h3>
+          <ul class="footer-links">
+            <li><a href="profil.html">Profil Desa</a></li>
+            <li><a href="berita.html">Berita Terbaru</a></li>
+            <li><a href="galeri.html">Galeri Kegiatan</a></li>
+            <li><a href="dokumen.html">Dokumen Publik</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Kontak</h3>
+          <ul class="footer-links">
+            <li><i class="fas fa-map-marker-alt" style="width:20px;"></i> Kantor Kepala Desa Palangan</li>
+            <li><i class="fas fa-phone" style="width:20px;"></i> (0338) 123456</li>
+            <li><i class="fas fa-envelope" style="width:20px;"></i> info@desapalangan.go.id</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Pemerintah Desa Palangan. Hak Cipta Dilindungi.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Load Data Beranda
+      
+      // 1. Load Statistics
+      renderLoading('statistik-container');
+      try {
+        const stats = await api.getStatistics();
+        
+        document.getElementById('statistik-container').innerHTML = `
+          <div class="card" style="text-align: center; padding: 1.5rem;">
+            <i class="fas fa-users text-primary mb-2" style="font-size: 2rem;"></i>
+            <h3 style="font-size: 2rem; margin: 0;">${stats.jumlah_penduduk}</h3>
+            <p style="margin: 0;">Penduduk</p>
+          </div>
+          <div class="card" style="text-align: center; padding: 1.5rem;">
+            <i class="fas fa-home text-primary mb-2" style="font-size: 2rem;"></i>
+            <h3 style="font-size: 2rem; margin: 0;">${stats.jumlah_kk}</h3>
+            <p style="margin: 0;">Keluarga</p>
+          </div>
+          <div class="card" style="text-align: center; padding: 1.5rem;">
+            <i class="fas fa-map-signs text-primary mb-2" style="font-size: 2rem;"></i>
+            <h3 style="font-size: 2rem; margin: 0;">${stats.jumlah_rw}</h3>
+            <p style="margin: 0;">RW</p>
+          </div>
+          <div class="card" style="text-align: center; padding: 1.5rem;">
+            <i class="fas fa-map-marker-alt text-primary mb-2" style="font-size: 2rem;"></i>
+            <h3 style="font-size: 2rem; margin: 0;">${stats.jumlah_rt}</h3>
+            <p style="margin: 0;">RT</p>
+          </div>
+        `;
+      } catch (error) {
+        renderError('statistik-container');
+      }
+
+      // 2. Load Latest News (Max 3)
+      renderLoading('latest-news-container');
+      try {
+        const newsData = await api.getNews();
+        const latestNews = newsData.slice(0, 3);
+        const container = document.getElementById('latest-news-container');
+        container.innerHTML = latestNews.map(news => renderNewsCard(news)).join('');
+      } catch (error) {
+        renderError('latest-news-container');
+      }
+
+      // 3. Load Latest Gallery (Max 3)
+      renderLoading('latest-gallery-container');
+      try {
+        const galleryData = await api.getGallery();
+        const latestGallery = galleryData.slice(0, 3);
+        const container = document.getElementById('latest-gallery-container');
+        container.innerHTML = latestGallery.map(item => renderGalleryItem(item)).join('');
+      } catch (error) {
+        renderError('latest-gallery-container');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galeri - Desa Palangan</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">
+        <i class="fas fa-leaf"></i> Desa Palangan
+      </a>
+      <button class="hamburger">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="index.html">Beranda</a></li>
+        <li class="nav-item"><a href="profil.html">Profil</a></li>
+        <li class="nav-item"><a href="berita.html">Berita</a></li>
+        <li class="nav-item"><a href="galeri.html" class="active">Galeri</a></li>
+        <li class="nav-item"><a href="perangkat.html">Perangkat</a></li>
+        <li class="nav-item"><a href="dokumen.html">Dokumen</a></li>
+        <li class="nav-item"><a href="kontak.html">Kontak</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <div class="container">
+      <h1>Galeri Kegiatan</h1>
+      <p>Dokumentasi berbagai kegiatan dan keindahan Desa Palangan</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="py-16">
+    <div class="container">
+      <div id="gallery-container" class="gallery-grid">
+        <!-- Data Galeri akan dimuat melalui API -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>Desa Palangan</h3>
+          <p>Website resmi desa sebagai sarana informasi dan publikasi kepada masyarakat luas mengenai berbagai kegiatan dan potensi desa.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Tautan Cepat</h3>
+          <ul class="footer-links">
+            <li><a href="profil.html">Profil Desa</a></li>
+            <li><a href="berita.html">Berita Terbaru</a></li>
+            <li><a href="galeri.html">Galeri Kegiatan</a></li>
+            <li><a href="dokumen.html">Dokumen Publik</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Kontak</h3>
+          <ul class="footer-links">
+            <li><i class="fas fa-map-marker-alt" style="width:20px;"></i> Kantor Kepala Desa Palangan</li>
+            <li><i class="fas fa-phone" style="width:20px;"></i> (0338) 123456</li>
+            <li><i class="fas fa-envelope" style="width:20px;"></i> info@desapalangan.go.id</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Pemerintah Desa Palangan. Hak Cipta Dilindungi.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      renderLoading('gallery-container');
+      try {
+        const galleryData = await api.getGallery();
+        const container = document.getElementById('gallery-container');
+        
+        if (galleryData.length === 0) {
+          container.innerHTML = '<p class="text-center" style="grid-column: 1 / -1;">Belum ada foto dalam galeri.</p>';
+        } else {
+          container.innerHTML = galleryData.map(item => renderGalleryItem(item)).join('');
+        }
+      } catch (error) {
+        renderError('gallery-container');
+      }
+    });
+  </script>
+</body>
+</html>

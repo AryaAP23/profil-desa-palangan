@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Berita - Desa Palangan</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">
+        <i class="fas fa-leaf"></i> Desa Palangan
+      </a>
+      <button class="hamburger">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="index.html">Beranda</a></li>
+        <li class="nav-item"><a href="profil.html">Profil</a></li>
+        <li class="nav-item"><a href="berita.html" class="active">Berita</a></li>
+        <li class="nav-item"><a href="galeri.html">Galeri</a></li>
+        <li class="nav-item"><a href="perangkat.html">Perangkat</a></li>
+        <li class="nav-item"><a href="dokumen.html">Dokumen</a></li>
+        <li class="nav-item"><a href="kontak.html">Kontak</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="py-16" style="padding-top: 120px;">
+    <div class="container" style="max-width: 800px;" id="article-container">
+      <!-- Detail Berita akan dimuat melalui API -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>Desa Palangan</h3>
+          <p>Website resmi desa sebagai sarana informasi dan publikasi kepada masyarakat luas mengenai berbagai kegiatan dan potensi desa.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Tautan Cepat</h3>
+          <ul class="footer-links">
+            <li><a href="profil.html">Profil Desa</a></li>
+            <li><a href="berita.html">Berita Terbaru</a></li>
+            <li><a href="galeri.html">Galeri Kegiatan</a></li>
+            <li><a href="dokumen.html">Dokumen Publik</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Kontak</h3>
+          <ul class="footer-links">
+            <li><i class="fas fa-map-marker-alt" style="width:20px;"></i> Kantor Kepala Desa Palangan</li>
+            <li><i class="fas fa-phone" style="width:20px;"></i> (0338) 123456</li>
+            <li><i class="fas fa-envelope" style="width:20px;"></i> info@desapalangan.go.id</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Pemerintah Desa Palangan. Hak Cipta Dilindungi.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Ambil ID berita dari URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const articleId = urlParams.get('id');
+
+      const container = document.getElementById('article-container');
+
+      if (!articleId) {
+        container.innerHTML = `
+          <div class="error-message">
+            Berita tidak ditemukan. Kembali ke <a href="berita.html" style="text-decoration: underline;">Halaman Berita</a>.
+          </div>
+        `;
+        return;
+      }
+
+      renderLoading('article-container');
+      try {
+        const article = await api.getNewsDetail(articleId);
+        
+        // Ganti title halaman
+        document.title = `${article.judul} - Desa Palangan`;
+
+        container.innerHTML = `
+          <div class="mb-4">
+            <a href="berita.html" style="color: var(--primary-color); font-weight: 500;">
+              <i class="fas fa-arrow-left"></i> Kembali ke Berita
+            </a>
+          </div>
+          <div class="article-header">
+            <h1 style="font-size: 2.5rem;">${article.judul}</h1>
+            <div class="article-meta">
+              <span><i class="far fa-calendar-alt"></i> ${article.tanggal}</span>
+              <span><i class="fas fa-user"></i> Admin Desa</span>
+            </div>
+          </div>
+          <img src="${article.thumbnail_url}" alt="${article.judul}" class="article-img">
+          <div class="article-content">
+            <p>${article.isi.replace(/\n/g, '<br><br>')}</p>
+          </div>
+        `;
+      } catch (error) {
+        renderError('article-container', 'Gagal memuat berita atau berita tidak ditemukan.');
+      }
+    });
+  </script>
+</body>
+</html>
