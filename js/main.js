@@ -4,6 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
+  initHeroSlideshow();
 });
 
 function initNavbar() {
@@ -136,4 +137,17 @@ function renderDocumentItem(doc) {
       </a>
     </div>
   `;
+}
+
+function initHeroSlideshow() {
+  const slides = document.querySelectorAll('.slideshow-slide');
+  if (slides.length === 0) return;
+  
+  let currentSlideIndex = 0;
+  
+  setInterval(() => {
+    slides[currentSlideIndex].classList.remove('active');
+    currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+    slides[currentSlideIndex].classList.add('active');
+  }, 4000); // Change image every 4 seconds
 }

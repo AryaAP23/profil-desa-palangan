@@ -239,10 +239,26 @@ p { margin-bottom: 1rem; color: var(--text-muted); }
   justify-content: center;
 }
 
-.hero-image img {
+.slideshow-container {
+  display: grid;
+  width: 100%;
+  max-width: 600px;
+}
+
+.hero-image img.slideshow-slide {
+  grid-area: 1 / 1;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
-  max-width: 100%;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.hero-image img.slideshow-slide.active {
+  opacity: 1;
+  z-index: 1;
 }
 
 /* Page Header (for inner pages) */
