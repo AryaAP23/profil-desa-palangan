@@ -151,7 +151,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
       try {
-        const data = await api.getProfile();
+        const data = await api.getSettings();
         
         if (data.alamat) {
           document.getElementById('kontak-alamat').innerText = data.alamat;
