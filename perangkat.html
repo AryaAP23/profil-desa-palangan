@@ -74,9 +74,9 @@
         <div class="footer-col">
           <h3>Kontak</h3>
           <ul class="footer-links">
-            <li><i class="fas fa-map-marker-alt" style="width:20px;"></i> Kantor Kepala Desa Palangan</li>
-            <li><i class="fas fa-phone" style="width:20px;"></i> (0338) 123456</li>
-            <li><i class="fas fa-envelope" style="width:20px;"></i> info@desapalangan.go.id</li>
+            <li><i class="fas fa-map-marker-alt" style="width:20px;"></i> <span id="footer-alamat">-</span></li>
+            <li><i class="fas fa-phone" style="width:20px;"></i> <span id="footer-telepon">-</span></li>
+            <li><i class="fas fa-envelope" style="width:20px;"></i> <span id="footer-email">-</span></li>
           </ul>
         </div>
       </div>
@@ -103,6 +103,30 @@
         }
       } catch (error) {
         renderError('officials-container');
+      }
+
+      try {
+        const settings = await api.getSettings();
+        if (settings.alamat) {
+          const footerAlamat = document.getElementById('footer-alamat');
+          if (footerAlamat) footerAlamat.innerText = settings.alamat;
+        }
+        if (settings.telepon) {
+          const footerTelepon = document.getElementById('footer-telepon');
+          if (footerTelepon) footerTelepon.innerText = settings.telepon;
+        }
+        if (settings.email) {
+          const footerEmail = document.getElementById('footer-email');
+          if (footerEmail) footerEmail.innerText = settings.email;
+        }
+      } catch (error) {
+        console.error("Gagal memuat pengaturan footer", error);
+        const footerAlamat = document.getElementById('footer-alamat');
+        if (footerAlamat) footerAlamat.innerText = 'Gagal memuat';
+        const footerTelepon = document.getElementById('footer-telepon');
+        if (footerTelepon) footerTelepon.innerText = 'Gagal memuat';
+        const footerEmail = document.getElementById('footer-email');
+        if (footerEmail) footerEmail.innerText = 'Gagal memuat';
       }
     });
   </script>

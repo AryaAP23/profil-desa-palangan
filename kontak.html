@@ -133,9 +133,9 @@
         <div class="footer-col">
           <h3>Kontak</h3>
           <ul class="footer-links">
-            <li><i class="fas fa-map-marker-alt" style="width:20px;"></i> Kantor Kepala Desa Palangan</li>
-            <li><i class="fas fa-phone" style="width:20px;"></i> (0338) 123456</li>
-            <li><i class="fas fa-envelope" style="width:20px;"></i> info@desapalangan.go.id</li>
+            <li><i class="fas fa-map-marker-alt" style="width:20px;"></i> <span id="footer-alamat">-</span></li>
+            <li><i class="fas fa-phone" style="width:20px;"></i> <span id="footer-telepon">-</span></li>
+            <li><i class="fas fa-envelope" style="width:20px;"></i> <span id="footer-email">-</span></li>
           </ul>
         </div>
       </div>
@@ -155,12 +155,18 @@
         
         if (data.alamat) {
           document.getElementById('kontak-alamat').innerText = data.alamat;
+          const footerAlamat = document.getElementById('footer-alamat');
+          if (footerAlamat) footerAlamat.innerText = data.alamat;
         }
         if (data.telepon) {
           document.getElementById('kontak-telepon').innerText = data.telepon;
+          const footerTelepon = document.getElementById('footer-telepon');
+          if (footerTelepon) footerTelepon.innerText = data.telepon;
         }
         if (data.email) {
           document.getElementById('kontak-email').innerText = data.email;
+          const footerEmail = document.getElementById('footer-email');
+          if (footerEmail) footerEmail.innerText = data.email;
         }
         
         // Memisahkan jam layanan berdasarkan koma dan menampilkan per baris
@@ -181,6 +187,12 @@
         document.getElementById('kontak-telepon').innerText = 'Gagal memuat';
         document.getElementById('kontak-email').innerText = 'Gagal memuat';
         document.getElementById('kontak-jam-layanan').innerText = 'Gagal memuat';
+        const footerAlamat = document.getElementById('footer-alamat');
+        if (footerAlamat) footerAlamat.innerText = 'Gagal memuat';
+        const footerTelepon = document.getElementById('footer-telepon');
+        if (footerTelepon) footerTelepon.innerText = 'Gagal memuat';
+        const footerEmail = document.getElementById('footer-email');
+        if (footerEmail) footerEmail.innerText = 'Gagal memuat';
       }
     });
   </script>

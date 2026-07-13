@@ -83,7 +83,7 @@ function renderError(containerId, message = "Data gagal dimuat. Silakan coba beb
 }
 
 // Reusable render components
-function renderNewsCard(news) {
+function renderNewsCard(news, hideButton = false) {
   return `
     <article class="card">
       <img src="${news.thumbnail_url}" alt="${news.judul}" class="card-img" loading="lazy">
@@ -95,7 +95,7 @@ function renderNewsCard(news) {
           <a href="berita-detail.html?id=${news.id}">${news.judul}</a>
         </h3>
         <p class="card-text">${news.ringkasan}</p>
-        <a href="berita-detail.html?id=${news.id}" class="btn btn-outline" style="align-self: flex-start;">Baca Selengkapnya</a>
+        ${hideButton ? '' : `<a href="berita-detail.html?id=${news.id}" class="btn btn-outline" style="align-self: flex-start;">Baca Selengkapnya</a>`}
       </div>
     </article>
   `;
