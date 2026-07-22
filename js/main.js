@@ -38,16 +38,16 @@ function initNavbar() {
   // Set active link based on current page
   const currentPath = window.location.pathname;
   const navLinks = document.querySelectorAll('.nav-item a');
-  
+
   navLinks.forEach(link => {
     // Basic logic to check active state
     if (link.getAttribute('href') !== '#' && currentPath.includes(link.getAttribute('href'))) {
       navLinks.forEach(l => l.classList.remove('active'));
       link.classList.add('active');
     } else if (currentPath === '/' || currentPath.endsWith('index.html')) {
-       if(link.getAttribute('href') === 'index.html') {
-          link.classList.add('active');
-       }
+      if (link.getAttribute('href') === 'index.html') {
+        link.classList.add('active');
+      }
     }
   });
 }
@@ -118,6 +118,7 @@ function renderOfficialCard(official) {
       <img src="${official.foto_url}" alt="${official.nama}" class="team-img" loading="lazy">
       <h3 class="team-name">${official.nama}</h3>
       <p class="team-role">${official.jabatan}</p>
+      <p class="team-role">${official.no_telp}</p>
     </div>
   `;
 }
@@ -142,31 +143,31 @@ function renderDocumentItem(doc) {
 async function initHeroSlideshow() {
   const container = document.getElementById('hero-slideshow');
   if (!container) return;
-  
+
   try {
     const galleryData = await api.getGallery();
     // Ambil maksimal 5 gambar
     const slidesData = galleryData.slice(0, 5);
-    
+
     if (slidesData.length === 0) {
       container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;background:#e2e8f0;border-radius:var(--radius-lg)"><p>Tidak ada gambar</p></div>';
       return;
     }
-    
+
     container.innerHTML = slidesData.map((item, index) => `
       <img class="slideshow-slide ${index === 0 ? 'active' : ''}" src="${item.image_url}" alt="${item.judul}" loading="${index === 0 ? 'eager' : 'lazy'}">
     `).join('');
-    
+
     const slides = container.querySelectorAll('.slideshow-slide');
     if (slides.length <= 1) return;
-    
+
     let currentSlideIndex = 0;
     setInterval(() => {
       slides[currentSlideIndex].classList.remove('active');
       currentSlideIndex = (currentSlideIndex + 1) % slides.length;
       slides[currentSlideIndex].classList.add('active');
     }, 4000);
-    
+
   } catch (error) {
     console.error("Gagal memuat slideshow:", error);
     container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;background:#e2e8f0;border-radius:var(--radius-lg)"><p>Gagal memuat gambar galeri</p></div>';
